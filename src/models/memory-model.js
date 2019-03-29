@@ -1,7 +1,12 @@
 'use strict';
 
 const uuid = require('uuid/v4');
-
+/**
+ * This `Model` class takes an external schema.
+ * It contains REST methods and uses array manipulation techniques to return Promises
+ * that resolve to data from the database.
+ * @param schema {object} External schema
+ */
 class Model {
   constructor(schema) {
     this.schema = schema;

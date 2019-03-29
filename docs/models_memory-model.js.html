@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/mongo-model.js</title>
+    <title>JSDoc: Source: models/memory-model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/mongo-model.js</h1>
+    <h1 class="page-title">Source: models/memory-model.js</h1>
 
     
 
@@ -27,33 +27,68 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
+
+const uuid = require('uuid/v4');
 /**
- * The `Model` class takes a Mongoose schema.
- * It contains REST methods and uses Mongoose syntax to return Promises
+ * This `Model` class takes an external schema.
+ * It contains REST methods and uses array manipulation techniques to return Promises
  * that resolve to data from the database.
- * @param schema {object} Mongoose schema
+ * @param schema {object} External schema
  */
 class Model {
   constructor(schema) {
     this.schema = schema;
+    this.database = [];
   }
 
-  get(_id) {
-    let queryObject = _id ? { _id } : {};
-    return this.schema.find(queryObject);
+  sanitize(entry) {
+    let valid = true;
+    let record = {};
+
+    Object.keys(this.schema).forEach(field => {
+      if (this.schema[field].required) {
+        if (entry[field]) {
+          record[field] = entry[field];
+        } else {
+          valid = false;
+        }
+      } else {
+        record[field] = entry[field];
+      }
+    });
+
+    return valid ? record : undefined;
   }
 
-  post(record) {
-    let newRecord = new this.schema(record);
-    return newRecord.save();
+  count() {
+    return this.database.length;
   }
 
-  put(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, { new: true });
+  get(id) {
+    const records = id ? this.database.filter(record => record._id === id) : this.database;
+    return Promise.resolve(records);
   }
 
-  delete(_id) {
-    return this.schema.findByIdAndDelete(_id);
+  post(entry) {
+    entry._id = uuid();
+    let record = this.sanitize(entry);
+    if (record._id) {
+      this.database.push(record);
+    }
+    return Promise.resolve(record);
+  }
+
+  delete(id) {
+    this.database = this.database.filter(record => record._id !== id);
+    return this.get(id);
+  }
+
+  put(id, entry) {
+    let record = this.sanitize(entry);
+    if (record._id) {
+      this.database = this.database.map(item => (item._id === id ? record : item));
+    }
+    return this.get(id);
   }
 }
 
