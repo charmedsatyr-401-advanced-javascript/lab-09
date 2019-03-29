@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/"
+      "url": "https://hidden-escarpment-25308.herokuapp.com/"
     }
   ],
   "paths": {
@@ -149,14 +149,14 @@
       "NewModel": {
         "type": "object",
         "example": {
-          "name": "{Model} Name"
+          "name": "Model Name"
         }
       },
       "Model": {
         "type": "object",
         "example": {
           "id": 2,
-          "name": "{Model} Name"
+          "name": "Model Name"
         }
       },
       "Delete": {
@@ -166,3 +166,4 @@
     }
   }
 }
+
