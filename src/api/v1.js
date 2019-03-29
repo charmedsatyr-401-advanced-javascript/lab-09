@@ -16,7 +16,7 @@ const router = express.Router();
 
 // Swagger
 const swaggerUI = require('swagger-ui-express');
-const swaggerDocument = require('../docs/config/swagger.json');
+const swaggerDocument = require('../../docs/config/swagger.json');
 
 // Evaluate the model, dynamically
 router.param('model', modelFinder);
