@@ -22,9 +22,8 @@ const swaggerDocument = require(`${cwd}/docs/config/swagger.json`);
 router.param('model', modelFinder);
 
 // Documentation
-router.use('/', swaggerUI.serve);
-router.get('/', swaggerUI.setup(swaggerDocument));
-router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
+router.use('/api/v1/doc/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+router.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // JSDocs
 router.use('/docs', express.static(`${cwd}/docs`));
