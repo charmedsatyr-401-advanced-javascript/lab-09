@@ -4,9 +4,13 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const mongooseOptions = {
-  useNewUrlParser:true,
+  useNewUrlParser: true,
   useCreateIndex: true,
 };
-mongoose.connect(process.env.MONGODB_URI, mongooseOptions);
 
-require('./src/app.js').start(process.env.PORT);
+const PORT = process.env.PORT || 3000;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI, mongooseOptions);
+
+require('./src/app.js').start(PORT);
