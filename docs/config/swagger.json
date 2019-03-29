@@ -11,16 +11,26 @@
     }
   ],
   "paths": {
-    "/categories": {
+    "/api/v1/{model}": {
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
-        "description": "Get all categories",
+        "description": "Get all {model} entries",
         "responses": {
           "200": {
-            "description": "Returned a list of categories",
+            "description": "Returned a list of {model} entries",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/CategoryList"
+                  "$ref": "#/components/schemas/ModelList"
                 }
               }
             }
@@ -28,23 +38,23 @@
         }
       },
       "post": {
-        "description": "Create a new category",
+        "description": "Create a new {model}",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCategory"
+                "$ref": "#/components/schemas/NewModel"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Returned the created category",
+            "description": "Returned the created {model}",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/Category"
+                  "$ref": "#/components/schemas/Model"
                 }
               }
             }
@@ -52,8 +62,16 @@
         }
       }
     },
-    "/categories/{id}": {
+    "/api/v1/{model}/{id}": {
       "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
         {
           "name": "id",
           "in": "path",
@@ -64,14 +82,14 @@
         }
       ],
       "get": {
-        "description": "Get One Category",
+        "description": "Get One {model}",
         "responses": {
           "200": {
-            "description": "Returned one category",
+            "description": "Returned one {model}",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/Category"
+                  "$ref": "#/components/schemas/Model"
                 }
               }
             }
@@ -79,10 +97,10 @@
         }
       },
       "delete": {
-        "description": "Delete One Category",
+        "description": "Delete One {Model}",
         "responses": {
           "200": {
-            "description": "Deleted one category",
+            "description": "Deleted one {model}",
             "content": {
               "*/*": {
                 "schema": {
@@ -94,23 +112,23 @@
         }
       },
       "put": {
-        "description": "Replace a category",
+        "description": "Replace a {model}",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/Model"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Returned the updated category",
+            "description": "Returned the updated {model}",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/Category"
+                  "$ref": "#/components/schemas/Model"
                 }
               }
             }
@@ -121,30 +139,24 @@
   },
   "components": {
     "schemas": {
-      "CategoryList": {
-        "type": "array",
-        "example": [
-          {
-            "id": 1,
-            "Category 1": null
-          },
-          {
-            "id": 2,
-            "Category 2": null
-          }
-        ]
-      },
-      "NewCategory": {
+      "ModelList": {
         "type": "object",
         "example": {
-          "name": "Category Name"
+          "count": 0,
+          "results": []
         }
       },
-      "Category": {
+      "NewModel": {
+        "type": "object",
+        "example": {
+          "name": "{Model} Name"
+        }
+      },
+      "Model": {
         "type": "object",
         "example": {
           "id": 2,
-          "name": "Category Name"
+          "name": "{Model} Name"
         }
       },
       "Delete": {
