@@ -16,7 +16,7 @@ const router = express.Router();
 
 // Swagger
 const swaggerUI = require('swagger-ui-express');
-const swaggerDocument = require('../../docs/config/swagger.json');
+const swaggerDocument = require(`${cwd}/docs/config/swagger.json`);
 
 // Evaluate the model, dynamically
 router.param('model', modelFinder);
@@ -27,7 +27,7 @@ router.get('/', swaggerUI.setup(swaggerDocument));
 router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
 
 // JSDocs
-router.use('/docs', express.static('../../docs'));
+router.use('/docs', express.static(`${cwd}/docs`));
 
 // API Routes
 router.get('/api/v1/:model', handleGetAll);
