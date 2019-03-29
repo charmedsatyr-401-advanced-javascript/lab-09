@@ -14,8 +14,16 @@ const modelFinder = require(`${cwd}/src/middleware/model-finder.js`);
 
 const router = express.Router();
 
+// Swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('../docs/config/swagger.json');
+
 // Evaluate the model, dynamically
 router.param('model', modelFinder);
+
+// Documentation
+router.use('/', swaggerUI.serve);
+router.get('/', swaggerUI.setup(swaggerDocument));
 
 // API Routes
 router.get('/api/v1/:model', handleGetAll);
