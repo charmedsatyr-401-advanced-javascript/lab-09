@@ -1,7 +1,7 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Lab 08: Data Modeling
+## Lab 09: API Server
 
 ### Author: Joseph Wolfe
 
@@ -15,28 +15,35 @@
 * [swagger](./api/v1/doc)
 
 ### Modules
-`./models/categories.js`
+`./src/models/mongo-model.js`
+`./src/models/memory-model.js`
 
-`./models/products.js`
+`./src/models/categories/categories-model.js`
 
-`./models/products.schema.js`
+`./src/models/players/players-model.js`
+`./src/models/players/players-schema.js`
 
-#### `categories.js`
-##### Exported Values and Methods from `categories.js`
-`get()` -> `Array of objects` from database
-`get(id)` -> `object` from database
+`./src/models/teams-model.js`
+`./src/models/teams-schema.js`
 
-`post(record)` -> new `record` from database
+#### `src/models/mongo-model.js`
+##### Exported Values and Methods from `mongo-model.js`
+`get()` -> `Promise` -> `Array of objects` from database
 
-`put(id, record)` -> modified `record` from database
+`get(_id)` -> `Promise` -> `object` from database
 
-`delete(id)` -> deleted `record` from database
+`post(record)` -> `Promise` -> new `record` from database
 
-`validate(entry)` -> Boolean
-This function returns a Boolean value determined by whether the entry matches the embedded schema.
+`put(_id, record)` -> `Promise` -> modified `record` from database
 
-#### `products.js`
-##### Exported Values and Methods from `products.js`
+`delete(_id)` -> `Promise` -> deleted `record` from database
+
+#### `src/models/memory-model.js`
+##### Exported Values and Methods from `memory-model.js`
+`sanitize(entry)` -> returns a validated record or `undefined`
+
+`count` -> returns the length of the database
+
 `get()` -> `Promise` -> `Array of objects` from database
 
 `get(id)` -> `Promise` -> `object` from database
@@ -47,23 +54,27 @@ This function returns a Boolean value determined by whether the entry matches th
 
 `delete(id)` -> `Promise` -> deleted `record` from database
 
-* `put` and `post` methods will capitalize any `name` entry.
 
-#### `products.schema.js`
-##### Exported Values and Methods from `products.schema.js`
-Exports a `mongoose` Schema, `products`
+#### `src/models/categories/`
+##### Exported Values and Methods from `categories-model.js`
+Exports an instance of a `Categories` model, which extends the exported class from `.src/models/memory-model.js` instantiated with a private schema.
+
+#### `src/models/players/`
+##### Exported Values and Methods from `players-model.js`
+Exports an instance of a `Players` model, which extends the exported class from `.src/models/mongo-model.js` instantiated with the Mongoose schema from `players-schema.js`.
+
+##### Exported Values and Methods from `players-schema.js`
+Exports a Mongoose schema, `players`.
+
+#### `src/models/teams/`
+##### Exported Values and Methods from `teams-model.js`
+Exports an instance of a `Teams` model, which extends the exported class from `.src/models/mongo-model.js` instantiated with the Mongoose schema from `teams-schema.js`.
+
+##### Exported Values and Methods from `teams-schema.js`
+Exports a Mongoose schema, `teams`
 
 #### Running the app
-* Navigate to the `./api-server` directory.
-* Start your Mongo database with `mongod --dbpath=./data --port 27017`.
-* Start the server with `nodemon index.js`
-* The `/categories` path is not operational because the routes currently expect promises, and the model returns values.
-* Using `httpie` package, you can make requests to the `/products` path using the `httpie` API.
-   * Example `GET`: `http :3000/products`
-   * Example `POST`: `echo '{"name": "toothbrush"}' | http post :3000/products`
-   * Example `PUT`: `echo '{"name": "electric toothbrush"}' | http put :3000/products/:id`, where `id` is the `_id` MongoDB has assigned to the previous toothbrush record.
-   * `DELETE` and `GET` methods on a specified `id` require more testing.
-
+See the `front end` link above for live API documentation.
 
 #### Tests
 * How do you run tests?
@@ -72,66 +83,25 @@ Exports a `mongoose` Schema, `products`
   * `npm run lint`
 
 * What assertions were made?
-  * `categories.js`
-    *  `post` method
-    
-       ✓ add a record to the database and return what was posted
-    * `get` method
-
-      ✓ should return a record if given a valid `_id`
-
-      ✓ should return an array if given an invalid `_id`
-
-      ✓ should return an array if not given an argument
-    * `put` method
-
-      ✓ should return a modified record if given a valid `_id` and `record`
-
-      ✓ should return an empty object if given an invalid `_id`
-    * `delete` method
-
-      ✓ should remove the element with the given `_id` from the database
-
-      ✓ should return an empty object if given an invalid `_id`
-
-
-    * `validate` method
-
-      ✓ should return `false` if an entry does not match the schema
-
-      ✓ should return `true` if an entry does match the schema
-
-
-
-  
-  * `products.js`
-    * `post` method
-
-      ✓ add a record to the database and return what was posted (19ms)
-    * `get` method
-
-      ✓ should return a record if given a valid `id`
-
-      ✓ should return an array if given an invalid `id`
-
-      ✓ should return an array if not given an argument
-    * `put` method
-
-      ✓ should return a modified record if given a valid `id` and `record`
-
-
+  * `players-models.js`
+    * can post() a new player
+    * can get() a player
 
 
 * What assertions need to be / should be made?
-  * `categories.js`
-    * `delete` method tests
-      * should return an empty object if given an invalid `_id`
-  * `products.js`
-    * `put` method tests
-      * should return an empty object if given an invalid `_id` (2ms)
-    * `delete` method tests
-  * Once the integration of these modules with the working server is complete, the functionality of the server routes and functionality should be fully tested.
+  * All REST methods for the models `teams`, `players`, and `categories` should be tested.
+  * End-to-end testing should be performed on the server and routes.
 
 
 #### UML
-N/A
+`GET` requests
+![GET](./docs/assets/get.jpg)
+
+`POST` requests
+![POST](./docs/assets/post.jpg)
+
+`PUT` requests
+![PUT](./docs/assets/put.jpg)
+
+`DELETE` requests
+![DELETE](./docs/assets/delete.jpg)
