@@ -21,6 +21,11 @@ const swaggerDocument = require('../../docs/config/swagger.json');
 // Evaluate the model, dynamically
 router.param('model', modelFinder);
 
+// Documentation
+router.use('/', swaggerUI.serve);
+router.get('/', swaggerUI.setup(swaggerDocument));
+router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
+
 // API Routes
 router.get('/api/v1/:model', handleGetAll);
 router.post('/api/v1/:model', handlePost);
@@ -28,10 +33,6 @@ router.post('/api/v1/:model', handlePost);
 router.get('/api/v1/:model/:id', handleGetOne);
 router.put('/api/v1/:model/:id', handlePut);
 router.delete('/api/v1/:model/:id', handleDelete);
-
-// Documentation
-router.use('/', swaggerUI.serve);
-router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
 
 // Route Handlers
 
