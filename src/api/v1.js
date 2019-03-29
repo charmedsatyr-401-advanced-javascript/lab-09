@@ -26,6 +26,9 @@ router.use('/', swaggerUI.serve);
 router.get('/', swaggerUI.setup(swaggerDocument));
 router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
 
+// JSDocs
+router.use('/docs', express.static('../../docs'));
+
 // API Routes
 router.get('/api/v1/:model', handleGetAll);
 router.post('/api/v1/:model', handlePost);
