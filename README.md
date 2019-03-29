@@ -17,20 +17,24 @@
 ### Modules
 `./index.js`
 
-`.src/app.js`
+`./src/app.js`
 
-`.src/api/v1.js`
+`./src/api/v1.js`
 
 `./src/models/mongo-model.js`
+
 `./src/models/memory-model.js`
 
 `./src/models/categories/categories-model.js`
 
 `./src/models/players/players-model.js`
+
 `./src/models/players/players-schema.js`
 
 `./src/models/teams-model.js`
+
 `./src/models/teams-schema.js`
+
 
 
 #### `./index.js`
