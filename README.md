@@ -11,10 +11,14 @@
 * [front end](https://hidden-escarpment-25308.herokuapp.com)
 
 #### Documentation
-* [jsdoc](./docs/index.html)
-* [swagger](./api/v1/doc)
+* [jsdoc](https://hidden-escarpment-25308.herokuapp.com/docs/index.html)
+* [swagger](https://hidden-escarpment-25308.herokuapp.com/api/v1/doc)
 
 ### Modules
+`./index.js`
+
+`.src/app.js`
+
 `.src/api/v1.js`
 
 `./src/models/mongo-model.js`
@@ -27,6 +31,15 @@
 
 `./src/models/teams-model.js`
 `./src/models/teams-schema.js`
+
+
+#### `./index.js`
+##### Exported Values and Methods from `./index.js`
+This is the entry point of the application.
+
+#### `.src/app.js`
+##### Exported Values and Methods from `./src/app.js`
+This module exports the application's Express `app` module and `start` method.
 
 #### `.src/api/v1.js`
 ##### Exported Values and Methods from `v1.js`
@@ -41,8 +54,6 @@ The models `categories`, `teams`, and `players` are dynamically supported parame
 * `/api/v1/:model`, supports `GET` and `POST` requests
 
 * `/api/v1/:model/:id`, supports `GET`, `PUT`, and `DELETE` requests
-
-
 
 #### `src/models/mongo-model.js`
 ##### Exported Values and Methods from `mongo-model.js`
@@ -92,7 +103,9 @@ Exports an instance of a `Teams` model, which extends the exported class from `.
 Exports a Mongoose schema, `teams`
 
 #### Running the app
-See the `front end` link above for live API documentation.
+* Start the server on your local machine with `npm run start` or `node index.js`.
+
+* See the `front end` link above for live API documentation.
 
 Example API requests using the `httpie` package on the command line:
   * `GET` to the `teams` endpoint:
