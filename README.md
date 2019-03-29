@@ -76,6 +76,23 @@ Exports a Mongoose schema, `teams`
 #### Running the app
 See the `front end` link above for live API documentation.
 
+Example API requests using the `httpie` package on the command line:
+  * `GET` to the `teams` endpoint:
+
+`http https://hidden-escarpment-25308.herokuapp.com/api/v1/teams`
+
+  * `POST` to the `players` endpoint:
+
+`echo '{"name":"Tom", "position": "P", "throws":"L", "bats":"R", "team":"JavaScript"}' | http post https://hidden-escarpment-25308.herokuapp.com/api/v1/players`
+
+  * `PUT` to the `players` endpoint (modifying the `Tom` record):
+
+`echo '{"name":"Tom", "position": "1B", "throws":"R", "bats":"L", "team":"Mariners"}' | http put https://hidden-escarpment-25308.herokuapp.com/api/v1/players/5c9e31fbd167e7000498d013`
+
+  * `DELETE` to the `players` endpoint (deleting the `Tom` record):
+
+`http delete https://hidden-escarpment-25308.herokuapp.com/api/v1/players/5c9e31fbd167e7000498d013`
+
 #### Tests
 * How do you run tests?
   * `npm run test`
