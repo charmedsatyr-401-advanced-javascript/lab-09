@@ -23,6 +23,7 @@ router.param('model', modelFinder);
 
 // Documentation
 router.use('/', swaggerUI.serve);
+router.use('/', swaggerUI.setup(swaggerDocument));
 router.get('/api/v1/doc', swaggerUI.setup(swaggerDocument));
 
 // API Routes
