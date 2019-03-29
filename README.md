@@ -12,7 +12,7 @@
 
 #### Documentation
 * [jsdoc](https://hidden-escarpment-25308.herokuapp.com/docs/index.html)
-* [swagger](https://hidden-escarpment-25308.herokuapp.com/api/v1/doc)
+* [swagger](https://hidden-escarpment-25308.herokuapp.com/api/v1/doc/)
 
 ### Modules
 `./index.js`
