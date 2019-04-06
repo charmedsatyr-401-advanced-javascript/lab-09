@@ -137,11 +137,12 @@ Example API requests using the `httpie` package on the command line:
 * What assertions were made?
   * `players-models.js`
     * can post() a new player
-    * can get() a player
-
+    * can get() a player, including by `_id`
+    * can put() a player modification
+    * can delete() a player
 
 * What assertions need to be / should be made?
-  * All REST methods for the models `teams`, `players`, and `categories` should be tested.
+  * All REST methods for the models `teams` and `categories` should be tested.
   * End-to-end testing should be performed on the server and routes.
 
 
